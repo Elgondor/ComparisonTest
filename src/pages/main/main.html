@@ -10,9 +10,16 @@
     <ion-title>main</ion-title>
   </ion-navbar>
 
+  <ion-searchbar
+    [(ngModel)]="myInput"
+    [showCancelButton]="shouldShowCancel"
+    (ionInput)="onInput()"
+    (ionCancel)="onCancel($event)">
+  </ion-searchbar>
+  <button ion-button (click)="compareCars()" color="secondary">Compare</button>
 </ion-header>
 
 
 <ion-content padding>
-  <car-list [cars]="cars"></car-list>
+  <car-list [cars]="cars" (eventComparisonList)="getComparisonList($event)"></car-list>
 </ion-content>

@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { MainPageModule } from '../pages/main/main.module';
+import { ComparisonPageModule } from '../pages/comparison/comparison.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MainPageModule } from '../pages/main/main.module';
   imports: [
     BrowserModule,
     MainPageModule,
+    ComparisonPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

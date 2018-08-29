@@ -1,5 +1,5 @@
-import { Component,Input,OnInit } from '@angular/core';
-
+import { Component,Input,OnInit,Output,EventEmitter } from '@angular/core';
+import { Car } from '../../models/car';
 /**
  * Generated class for the CarListComponent component.
  *
@@ -11,28 +11,30 @@ import { Component,Input,OnInit } from '@angular/core';
   templateUrl: 'car-list.html'
 })
 export class CarListComponent implements OnInit{
-  @Input() cars: any[];
-
-  comparisonList:any[];
+  @Input() cars: Car[];
+  @Output() eventComparisonList = new EventEmitter();
+  comparisonList:Car[];
 
   constructor() {
     this.comparisonList = new Array();
+    
   }
 
   ngOnInit(){
+    this.eventComparisonList.emit(this.comparisonList);
     this.addToComparisonList();
 
     console.log(this.comparisonList);
   }
 
-  addToCarComparisonList(car:any){
+  addToCarComparisonList(car:Car){
     if(car.checked){
       this.comparisonList.push(car);
     }else{
       this.comparisonList = new Array();
       this.addToComparisonList();
     }
-
+    this.eventComparisonList.emit(this.comparisonList);
     console.log(this.comparisonList);
   }
 
