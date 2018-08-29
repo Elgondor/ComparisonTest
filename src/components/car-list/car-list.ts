@@ -12,22 +12,36 @@ import { Component,Input,OnInit } from '@angular/core';
 })
 export class CarListComponent implements OnInit{
   @Input() cars: any[];
-  text: string;
 
   comparisonList:any[];
 
   constructor() {
     this.comparisonList = new Array();
-    console.log('Hello CarListComponent Component');
-    this.text = 'Hello World';
   }
 
   ngOnInit(){
+    this.addToComparisonList();
+
+    console.log(this.comparisonList);
   }
 
-  addToCarComparisonList(i:number){
+  addToCarComparisonList(car:any){
+    if(car.checked){
+      this.comparisonList.push(car);
+    }else{
+      this.comparisonList = new Array();
+      this.addToComparisonList();
+    }
 
-    console.log(i);
+    console.log(this.comparisonList);
+  }
+
+  addToComparisonList(){
+    this.cars.forEach(car => {
+      if(car.checked){
+        this.comparisonList.push(car);
+      }
+    });
   }
 
 }

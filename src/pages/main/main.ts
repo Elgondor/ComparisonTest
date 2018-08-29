@@ -25,7 +25,10 @@ export class MainPage {
     this.cars.push(
       {model:'Toyota Corolla',price:8000,color:'blue',checked:false},
       {model:'Nissan Pathfinder',price:12000,color:'blue',checked:true},
-      {model:'Kia Rio',price:8000,color:'green',checked:false}
+      {model:'Kia Rio',price:8000,color:'green',checked:false},
+      {model:'Lexus',price:9000,color:'red',checked:false},
+      {model:'Tesla',price:7000,color:'green',checked:false},
+      {model:'Hyundai',price:15000,color:'violet',checked:false},
     );
   }
 
