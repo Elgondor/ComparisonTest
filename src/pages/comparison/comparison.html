@@ -14,5 +14,32 @@
 
 
 <ion-content padding>
+  <ion-grid>
 
+    <ion-row>
+      <ion-col>
+        <strong>Model</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Price</strong>
+      </ion-col>
+      <ion-col>
+        <strong>Color</strong>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row *ngFor="let car of comparisonList;let i = index;">
+      <ion-col>
+        {{car.model}}
+      </ion-col>
+      <ion-col>
+        {{car.price}}
+      </ion-col>
+      <ion-col>
+        {{car.color}}
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
