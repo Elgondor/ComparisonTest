@@ -12,9 +12,7 @@
 
   <ion-searchbar
     [(ngModel)]="myInput"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="onInput()"
-    (ionCancel)="onCancel($event)">
+    (ionInput)="setFilteredItems()">
   </ion-searchbar>
   <button ion-button (click)="compareCars()" color="secondary">Compare</button>
 </ion-header>

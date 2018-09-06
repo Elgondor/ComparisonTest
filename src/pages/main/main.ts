@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events} from 'ionic-angular';
 import { Car } from '../../models/car';
-
+import { DataProvider } from '../../providers/data/data';
 
 /**
  * Generated class for the MainPage page.
@@ -17,25 +17,24 @@ import { Car } from '../../models/car';
 })
 export class MainPage {
   myInput:String;
+  // cars:Car[];
   cars:Car[];
 
   comparisonList:Car[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
+              private dataService:DataProvider) {
     this.cars = new Array();
     this.myInput = '';
-    this.cars.push(
-      {model:'Toyota Corolla',price:8000,color:'blue',checked:false},
-      {model:'Nissan Pathfinder',price:12000,color:'blue',checked:true},
-      {model:'Kia Rio',price:8000,color:'green',checked:false},
-      {model:'Lexus',price:9000,color:'red',checked:false},
-      {model:'Tesla',price:7000,color:'green',checked:false},
-      {model:'Hyundai',price:15000,color:'violet',checked:false},
-    );
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    this.setFilteredItems();
+  }
+
+  setFilteredItems(){
+    this.cars = this.dataService.filterItems(this.myInput);
   }
 
   onInput(){
