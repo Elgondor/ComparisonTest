@@ -22,13 +22,25 @@ export class DataProvider {
       {model:'Lexus',price:9000,color:'red',checked:false},
       {model:'Tesla',price:7000,color:'green',checked:false},
       {model:'Hyundai',price:15000,color:'violet',checked:false},
+
+      {model:'Mitsubishi',price:8000,color:'blue',checked:false},
+      {model:'Ford Torino',price:12000,color:'blue',checked:true},
+      {model:'Chevrolet',price:8000,color:'green',checked:false},
+      {model:'Lexus NX',price:9000,color:'red',checked:false},
+      {model:'Tesla model S',price:7000,color:'green',checked:false},
+      {model:'Hyundai Tucson',price:15000,color:'violet',checked:false},
+
+      {model:'Mitsubishi Autlande',price:8000,color:'blue',checked:false},
+      {model:'Ford Mustang',price:12000,color:'blue',checked:true},
+      {model:'Chevrolet Camaro',price:8000,color:'green',checked:false},
+      {model:'Lexus LFA',price:9000,color:'red',checked:false},
+      {model:'Tesla model X',price:7000,color:'green',checked:false},
+      {model:'Hyundai i10',price:15000,color:'violet',checked:false},
     );
   }
 
   filterItems(searchTerm){
     return this.cars.filter((car) => {
-      // return car.model.toLowerCase().indexOf(
-      //   searchTerm.toLowerCase()) > -1;
       return car.model.toLowerCase().
         indexOf(searchTerm.toLowerCase()) > -1 ||
           car.color.toLowerCase().

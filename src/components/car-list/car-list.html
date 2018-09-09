@@ -1,6 +1,9 @@
 <!-- Generated template for the CarListComponent component -->
 <div>
-  <ion-grid>
+  <div *ngIf="searching" class="spinner-container">
+    <ion-spinner></ion-spinner>
+  </div>
+  <ion-grid *ngIf="!searching">
 
     <ion-row>
       <ion-col>

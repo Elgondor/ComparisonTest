@@ -12,6 +12,7 @@ import { Car } from '../../models/car';
 })
 export class CarListComponent implements OnInit{
   @Input() cars: Car[];
+  @Input() searching: any[];
   @Output() eventComparisonList = new EventEmitter();
   comparisonList:Car[];
 

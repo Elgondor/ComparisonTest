@@ -12,12 +12,16 @@
 
   <ion-searchbar
     [(ngModel)]="myInput"
-    (ionInput)="setFilteredItems()">
-  </ion-searchbar>
+    [formControl]="searchControl"
+    (ionInput)="onSearchInput()"></ion-searchbar>
   <button ion-button (click)="compareCars()" color="secondary">Compare</button>
 </ion-header>
 
 
 <ion-content padding>
-  <car-list [cars]="cars" (eventComparisonList)="getComparisonList($event)"></car-list>
+  <car-list 
+    [cars]="cars" 
+    [searching]="searching" 
+    (eventComparisonList)="getComparisonList($event)"></car-list>
+  
 </ion-content>

@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events} from 'ionic-angular';
 import { Car } from '../../models/car';
 import { DataProvider } from '../../providers/data/data';
+import 'rxjs/add/operator/debounceTime';
+import { FormControl } from '@angular/forms';
 
 /**
  * Generated class for the MainPage page.
@@ -19,18 +21,33 @@ export class MainPage {
   myInput:String;
   // cars:Car[];
   cars:Car[];
+  searchControl: FormControl;
 
   comparisonList:Car[];
+  
+  searching: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
               private dataService:DataProvider) {
     this.cars = new Array();
     this.myInput = '';
+    this.searchControl = new FormControl();
+    this.searching = false;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
     this.setFilteredItems();
+    this.searchControl.valueChanges.debounceTime(700).subscribe(
+      search  => {
+        this.searching = false;
+        this.setFilteredItems();
+      }
+    );
+  }
+
+  onSearchInput(){
+    this.searching = true;
   }
 
   setFilteredItems(){
