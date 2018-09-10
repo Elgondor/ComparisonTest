@@ -27,17 +27,22 @@ export class MainPage {
   
   searching: any;
 
+  pagesNumber:number;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
               private dataService:DataProvider) {
     this.cars = new Array();
     this.myInput = '';
+    this.pagesNumber=0;
     this.searchControl = new FormControl();
     this.searching = false;
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
-    this.setFilteredItems();
+    this.pagesNumber=this.dataService.getPagesNumber();
+    this.cars = this.dataService.paginationData(1);
+    
     this.searchControl.valueChanges.debounceTime(700).subscribe(
       search  => {
         this.searching = false;
@@ -67,6 +72,11 @@ export class MainPage {
   getComparisonList(eventComparisonList){
     this.comparisonList = eventComparisonList;
     console.log(this.comparisonList);
+  }
+
+  getInfiniteScrollList(page){
+    this.cars = this.cars.concat(this.dataService.paginationData(page));
+    
   }
 
 

@@ -22,6 +22,8 @@
   <car-list 
     [cars]="cars" 
     [searching]="searching" 
-    (eventComparisonList)="getComparisonList($event)"></car-list>
+    [pagesNumber]="pagesNumber" 
+    (eventComparisonList)="getComparisonList($event)"
+    (eventInfiniteScroll)="getInfiniteScrollList($event)"></car-list>
   
 </ion-content>
