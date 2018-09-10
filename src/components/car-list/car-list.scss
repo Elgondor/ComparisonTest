@@ -1,3 +1,17 @@
 car-list {
+    .spinner-container {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
 
+    #titles {
+        top:auto;
+        position: fixed; /* Fixed position - sit on top of the page */
+        bottom:20px;
+    }
+
+    .ion-header .navbar{
+        position: fixed;
+    }
 }

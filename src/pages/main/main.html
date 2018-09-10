@@ -5,21 +5,42 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  
 
-  <ion-navbar>
-    <ion-title>main</ion-title>
+  <ion-navbar color="primary">
+
+    <ion-navbar color="primary">
+      <ion-buttons left>
+          <button ion-button icon-only (click)="searchBarActive()">
+            <ion-icon name="search"></ion-icon>
+          </button>
+      </ion-buttons>
+      <ion-title>Compare page</ion-title>
+      <ion-buttons right>
+        <button ion-button icon-only (click)="compareCars()"><ion-icon name="cart"></ion-icon></button>
+        <button ion-button (click)="unmark(!unmarkFlag)" color="danger"><ion-icon name="close"></ion-icon></button>
+      </ion-buttons>
+
+    </ion-navbar>
+
   </ion-navbar>
 
-  <ion-searchbar
-    [(ngModel)]="myInput"
-    [showCancelButton]="shouldShowCancel"
-    (ionInput)="onInput()"
-    (ionCancel)="onCancel($event)">
-  </ion-searchbar>
-  <button ion-button (click)="compareCars()" color="secondary">Compare</button>
+  <ion-searchbar 
+          color="primary"
+          *ngIf="searchBar"
+          [(ngModel)]="myInput"
+          [formControl]="searchControl"
+          (ionInput)="onSearchInput()"></ion-searchbar>
 </ion-header>
 
 
 <ion-content padding>
-  <car-list [cars]="cars" (eventComparisonList)="getComparisonList($event)"></car-list>
+  <car-list 
+    [cars]="cars" 
+    [searching]="searching" 
+    [pagesNumber]="pagesNumber" 
+    [unmarkFlag]="unmarkFlag"
+    (eventComparisonList)="getComparisonList($event)"
+    (eventInfiniteScroll)="getInfiniteScrollList($event)"></car-list>
+  
 </ion-content>

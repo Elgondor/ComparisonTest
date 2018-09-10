@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import { Component,EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events} from 'ionic-angular';
 import { Car } from '../../models/car';
+import { DataProvider } from '../../providers/data/data';
+import 'rxjs/add/operator/debounceTime';
+import { FormControl } from '@angular/forms';
+
 
 
 /**
@@ -18,24 +22,51 @@ import { Car } from '../../models/car';
 export class MainPage {
   myInput:String;
   cars:Car[];
+  searchControl: FormControl;
 
   comparisonList:Car[];
+  
+  searching: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events) {
+  pagesNumber:number;
+
+  unmarkFlag:number;
+
+  searchBar:boolean;
+
+  eventUnmark:EventEmitter<any>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
+              private dataService:DataProvider) {
     this.cars = new Array();
     this.myInput = '';
-    this.cars.push(
-      {model:'Toyota Corolla',price:8000,color:'blue',checked:false},
-      {model:'Nissan Pathfinder',price:12000,color:'blue',checked:true},
-      {model:'Kia Rio',price:8000,color:'green',checked:false},
-      {model:'Lexus',price:9000,color:'red',checked:false},
-      {model:'Tesla',price:7000,color:'green',checked:false},
-      {model:'Hyundai',price:15000,color:'violet',checked:false},
-    );
+    this.pagesNumber=0;
+    this.searchControl = new FormControl();
+    this.searching = false;
+    this.unmarkFlag = 1;
+    this.searchBar = false;
+    this.eventUnmark = new EventEmitter();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
+    this.pagesNumber=this.dataService.getPagesNumber();
+    this.cars = this.dataService.paginationData(1,20);
+    
+    this.searchControl.valueChanges.debounceTime(700).subscribe(
+      search  => {
+        this.searching = false;
+        this.setFilteredItems();
+      }
+    );
+  }
+
+  onSearchInput(){
+    this.searching = true;
+  }
+
+  setFilteredItems(){
+    this.cars = this.dataService.filterItems(this.myInput);
   }
 
   onInput(){
@@ -51,6 +82,19 @@ export class MainPage {
   getComparisonList(eventComparisonList){
     this.comparisonList = eventComparisonList;
     console.log(this.comparisonList);
+  }
+
+  getInfiniteScrollList(page){
+    this.cars = this.cars.concat(this.dataService.paginationData(page,20));
+  }
+
+  unmark(unmark:boolean){
+    this.unmarkFlag++;
+  }
+
+
+  searchBarActive(){
+    this.searchBar=!this.searchBar;
   }
 
 

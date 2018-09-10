@@ -12,19 +12,37 @@ import { Car } from '../../models/car';
 })
 export class CarListComponent implements OnInit{
   @Input() cars: Car[];
+  @Input() searching: any;
+  @Input() pagesNumber: any;
+  @Input() unmarkFlag: number;
   @Output() eventComparisonList = new EventEmitter();
+  @Output() eventInfiniteScroll = new EventEmitter();
   comparisonList:Car[];
+
+  page:number;
 
   constructor() {
     this.comparisonList = new Array();
-    
+    this.page=2;
   }
 
   ngOnInit(){
+    
+    
     this.eventComparisonList.emit(this.comparisonList);
-    this.addToComparisonList();
-
     console.log(this.comparisonList);
+
+    
+  }
+
+  ngOnChanges(){
+    this.addToComparisonList();
+    this.eventComparisonList.emit(this.comparisonList);
+
+    if(this.unmarkFlag>1){
+      this.unmarkEverything();
+    }
+    
   }
 
   addToCarComparisonList(car:Car){
@@ -39,11 +57,34 @@ export class CarListComponent implements OnInit{
   }
 
   addToComparisonList(){
-    this.cars.forEach(car => {
-      if(car.checked){
-        this.comparisonList.push(car);
+    this.comparisonList = this.cars.filter(
+      function (car){
+        return car.checked===true;
       }
-    });
+    );
+  }
+
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.eventInfiniteScroll.emit(this.page);
+      this.page++;
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+
+    if(this.page===this.pagesNumber){
+      infiniteScroll.enable(false);
+    }
+  }
+
+  unmarkEverything(){
+    this.cars.map(
+      function (car){
+        car.checked = false;
+      }
+    );
   }
 
 }

@@ -3,10 +3,12 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import { MyApp } from './app.component';
 import { MainPageModule } from '../pages/main/main.module';
 import { ComparisonPageModule } from '../pages/comparison/comparison.module';
+import { DataProvider } from '../providers/data/data';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { ComparisonPageModule } from '../pages/comparison/comparison.module';
   imports: [
     BrowserModule,
     MainPageModule,
+    HttpClientModule,
     ComparisonPageModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -25,7 +28,8 @@ import { ComparisonPageModule } from '../pages/comparison/comparison.module';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataProvider
   ]
 })
 export class AppModule {}
