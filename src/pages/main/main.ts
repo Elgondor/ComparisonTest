@@ -94,7 +94,7 @@ export class MainPage {
 
 
   searchBarActive(){
-    this.searchBar=true;
+    this.searchBar=!this.searchBar;
   }
 
 
