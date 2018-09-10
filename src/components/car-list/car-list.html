@@ -23,7 +23,7 @@
 
     <ion-row *ngFor="let car of cars;let i = index;">
       <ion-col>
-        <ion-checkbox [(ngModel)]="car.checked" (ionChange)="addToCarComparisonList(car)" [disabled]="(comparisonList.length == 3) && (car.checked==false)"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="car.checked" (ionChange)="addToCarComparisonList(car)" [disabled]="(comparisonList.length >= 3) && (car.checked==false)"></ion-checkbox>
       </ion-col>
       <ion-col>
         {{car.model}}

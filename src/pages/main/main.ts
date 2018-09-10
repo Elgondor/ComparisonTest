@@ -29,6 +29,8 @@ export class MainPage {
 
   pagesNumber:number;
 
+  unmarkFlag:boolean;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
               private dataService:DataProvider) {
     this.cars = new Array();
@@ -36,6 +38,7 @@ export class MainPage {
     this.pagesNumber=0;
     this.searchControl = new FormControl();
     this.searching = false;
+    this.unmarkFlag = false;
   }
 
   ionViewDidLoad() {
@@ -77,6 +80,10 @@ export class MainPage {
   getInfiniteScrollList(page){
     this.cars = this.cars.concat(this.dataService.paginationData(page));
     
+  }
+
+  unmark(){
+    this.unmarkFlag = true;
   }
 
 
