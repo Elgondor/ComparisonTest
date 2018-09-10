@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,EventEmitter } from '@angular/core';
 import { IonicPage, NavController, NavParams,Events} from 'ionic-angular';
 import { Car } from '../../models/car';
 import { DataProvider } from '../../providers/data/data';
 import 'rxjs/add/operator/debounceTime';
 import { FormControl } from '@angular/forms';
+
+
 
 /**
  * Generated class for the MainPage page.
@@ -19,7 +21,6 @@ import { FormControl } from '@angular/forms';
 })
 export class MainPage {
   myInput:String;
-  // cars:Car[];
   cars:Car[];
   searchControl: FormControl;
 
@@ -29,7 +30,11 @@ export class MainPage {
 
   pagesNumber:number;
 
-  unmarkFlag:boolean;
+  unmarkFlag:number;
+
+  searchBar:boolean;
+
+  eventUnmark:EventEmitter<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public events: Events,
               private dataService:DataProvider) {
@@ -38,13 +43,15 @@ export class MainPage {
     this.pagesNumber=0;
     this.searchControl = new FormControl();
     this.searching = false;
-    this.unmarkFlag = false;
+    this.unmarkFlag = 1;
+    this.searchBar = false;
+    this.eventUnmark = new EventEmitter();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
     this.pagesNumber=this.dataService.getPagesNumber();
-    this.cars = this.dataService.paginationData(1);
+    this.cars = this.dataService.paginationData(1,20);
     
     this.searchControl.valueChanges.debounceTime(700).subscribe(
       search  => {
@@ -78,12 +85,16 @@ export class MainPage {
   }
 
   getInfiniteScrollList(page){
-    this.cars = this.cars.concat(this.dataService.paginationData(page));
-    
+    this.cars = this.cars.concat(this.dataService.paginationData(page,20));
   }
 
-  unmark(){
-    this.unmarkFlag = true;
+  unmark(unmark:boolean){
+    this.unmarkFlag++;
+  }
+
+
+  searchBarActive(){
+    this.searchBar=true;
   }
 
 

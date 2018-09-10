@@ -68,22 +68,22 @@ export class DataProvider {
     return Math.ceil(this.cars.length / 15);
   }
 
-  paginationData(page:number){
+  paginationData(page:number,itemsPerPage:number){
     this.paginationCars=new Array();
     let length = this.cars.length;
 
-    if((page*15)<this.cars.length){
+    if((page*itemsPerPage)<this.cars.length){
       if(page==1){
-        for(let i=0;i<15;i++){
+        for(let i=0;i<itemsPerPage;i++){
           this.paginationCars.push(this.cars[i]);
         }
       }else{
-        for(let i=0;i<15;i++){
-          this.paginationCars.push(this.cars[i+(((page-1)*15))]);
+        for(let i=0;i<itemsPerPage;i++){
+          this.paginationCars.push(this.cars[i+(((page-1)*itemsPerPage))]);
         }
       }
     }else{
-      for(let i=(((page-1)*15));i<this.cars.length;i++){
+      for(let i=(((page-1)*itemsPerPage));i<this.cars.length;i++){
         this.paginationCars.push(this.cars[i]);
       }
     }

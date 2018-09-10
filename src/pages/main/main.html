@@ -5,25 +5,41 @@
   Ionic pages and navigation.
 -->
 <ion-header>
+  
 
-  <ion-navbar>
-    <ion-title>main</ion-title>
+  <ion-navbar color="primary">
+    
+    <ion-grid>
+      <ion-row>
+        <button ion-button (click)="searchBarActive()">
+          <ion-icon name="search"></ion-icon>
+        </button>
+      </ion-row>
+      <ion-row>
+        <ion-title>Compare page</ion-title>
+      </ion-row>
+      <ion-row>
+        <ion-searchbar
+          [(ngModel)]="myInput"
+          [formControl]="searchControl"
+          (ionInput)="onSearchInput()"></ion-searchbar>
+        <button ion-button (click)="compareCars()" color="secondary">Compare</button>
+        <button ion-button (click)="unmark(!unmarkFlag)" color="danger">Unmark everything</button>
+      </ion-row>
+    </ion-grid>
   </ion-navbar>
 
-  <ion-searchbar
-    [(ngModel)]="myInput"
-    [formControl]="searchControl"
-    (ionInput)="onSearchInput()"></ion-searchbar>
-  <button ion-button (click)="compareCars()" color="secondary">Compare</button>
+  
 </ion-header>
 
 
 <ion-content padding>
+  
   <car-list 
     [cars]="cars" 
     [searching]="searching" 
     [pagesNumber]="pagesNumber" 
-    [unmarkFlag]="unmarkFlag" 
+    [unmarkFlag]="unmarkFlag"
     (eventComparisonList)="getComparisonList($event)"
     (eventInfiniteScroll)="getInfiniteScrollList($event)"></car-list>
   

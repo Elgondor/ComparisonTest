@@ -1,40 +1,63 @@
 <!-- Generated template for the CarListComponent component -->
+
+<div>
+    <strong>Select the cars you want to compare</strong>
+</div>
+
+
+
 <div>
   <div *ngIf="searching" class="spinner-container">
     <ion-spinner></ion-spinner>
   </div>
   <ion-grid *ngIf="!searching">
+    <!--<ion-item style="position: fixed; height: 50px; background: #444444">-->
+    <ion-item>
+      <ion-row>
+        <ion-col>
+          <strong>Check</strong>
+          
+        </ion-col>
+        <ion-col>
+          <strong>Model</strong>
+        </ion-col>
+        <ion-col>
+          <strong>Price</strong>
+        </ion-col>
+        <ion-col>
+          <strong>Color</strong>
+        </ion-col>
+      </ion-row>
+    </ion-item>
 
-    <ion-row>
-      <ion-col>
-        <strong>Check</strong>
-      </ion-col>
-      <ion-col>
-        <strong>Model</strong>
-      </ion-col>
-      <ion-col>
-        <strong>Price</strong>
-      </ion-col>
-      <ion-col>
-        <strong>Color</strong>
-      </ion-col>
-    </ion-row>
+    <!--<ion-item>-->
+      <ion-row *ngFor="let car of cars;let i = index;">
+      
+        <ion-col>
+          <ion-checkbox [(ngModel)]="car.checked" (ionChange)="addToCarComparisonList(car)" [disabled]="(comparisonList.length >= 3) && (car.checked==false)"></ion-checkbox>
+        </ion-col>
+        <ion-col>
+          <!--<ion-item>-->
+            {{car.model}}
+          <!--</ion-item>-->
+        </ion-col>
+        <ion-col>
+          <!--<ion-item>-->
+            {{car.price}}
+          <!--</ion-item>-->
+        </ion-col>
+        <ion-col>
+          <!--<ion-item>-->
+            {{car.color}}
+          <!--</ion-item>-->
+        </ion-col>
+
+      </ion-row>
+    <!--</ion-item>-->
+    
 
 
-    <ion-row *ngFor="let car of cars;let i = index;">
-      <ion-col>
-        <ion-checkbox [(ngModel)]="car.checked" (ionChange)="addToCarComparisonList(car)" [disabled]="(comparisonList.length >= 3) && (car.checked==false)"></ion-checkbox>
-      </ion-col>
-      <ion-col>
-        {{car.model}}
-      </ion-col>
-      <ion-col>
-        {{car.price}}
-      </ion-col>
-      <ion-col>
-        {{car.color}}
-      </ion-col>
-    </ion-row>
+    
 
   </ion-grid>
 
@@ -42,3 +65,6 @@
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </div>
+
+
+
